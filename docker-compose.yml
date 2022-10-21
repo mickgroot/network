@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  jackett:
+    image: linuxserver/jackett
+    ports:
+      - '9117:9117'
+    volumes:
+      - '/etc/jackett:/config'
+  pihole:
+    container_name: pihole
+    image: 'pihole/pihole:latest'
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+      - '80:80/tcp'
+    environment:
+      TZ: Europe/Amsterdam
+      WEBPASSWORD: schietnouop
+    volumes:
+      - '/etc-pihole:/etc/pihole'
+      - '/etc-dnsmasq.d:/etc/dnsmasq.d'
+    cap_add: null
+    restart: unless-stopped
